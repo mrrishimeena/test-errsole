@@ -5,7 +5,11 @@
 const errsole = require('errsole');
 errsole.initialize({
   framework: 'express',
-  token: 'f02f2e8b-4463-41c7-a51a-24578ea0af11'
+  token: 'f02f2e8b-4463-41c7-a51a-24578ea0af11',
+  evalExpression: true,
+  responseTimeThreshold: 2000,
+  slowRequestsTimeSlot: 24,
+  enableSessionLogs: false
 });
 // End of Errsole code snippet
 
