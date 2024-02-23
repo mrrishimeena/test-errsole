@@ -45,6 +45,41 @@ function readableHeapStats() {
   console.log(readableStats);
 }
 readableHeapStats()
+
+const fs = require('fs');
+
+// Check for the .dockerenv file
+const isDocker = () => {
+  try {
+    fs.statSync('/.dockerenv');
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+console.log(`Running in Docker: ${isDocker()}`);
+
+
+const isDockerCgroup = () => {
+  try {
+    const data = fs.readFileSync('/proc/self/cgroup', 'utf8');
+    return data.includes('/docker/');
+  } catch {
+    return false;
+  }
+};
+
+console.log(`Running in Docker (cgroup check): ${isDockerCgroup()}`);
+
+const isDockerEnv = () => {
+  return process.env.RUNNING_IN_DOCKER === 'true';
+};
+
+console.log(`Running in Docker (env check): ${isDockerEnv()}`);
+
+
+
 app.get('/', function (req, res) {
   res.send('Hello World');
 });
